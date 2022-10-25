@@ -46,6 +46,17 @@ Commands:
   version  App Version
 ```
 
+## Poetry
+This project uses [poetry](https://pypi.org/project/poetry/) for dependency management.
+
+### Update
+`poetry update`
+
+### Add Dependency
+`poetry add [--dev] package`
+
+
+
 
 ## TODO
 * Add more documentation
