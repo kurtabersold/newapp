@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Kurt Abersold <kurtabersold@gmail.com>"]
 readme = "README.md"
+repository = "https://github.com/kurtabersold/newapp"
 
 [tool.poetry.scripts]
 cli = "newapp.cli:app"
