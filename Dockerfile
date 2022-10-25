@@ -8,4 +8,6 @@ RUN pip install --no-cache-dir poetry
 COPY . .
 RUN poetry install
 
+# TODO: Install typer shell completion?
+
 CMD [ "poetry", "run", "cli" ]
