@@ -1,0 +1,13 @@
+services:
+  develop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: awesome/webapp
+    command:
+      - poetry
+      - run
+      - cli
+      - "null"
+    volumes:
+      - ./:/app/
