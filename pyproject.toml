@@ -3,6 +3,7 @@ name = "newapp"
 version = "0.1.0"
 description = ""
 authors = ["Kurt Abersold <kurtabersold@gmail.com>"]
+readme = "README.md"
 
 [tool.poetry.scripts]
 cli = "newapp.cli:app"
