@@ -1,22 +1,36 @@
-FROM python:3.10-bullseye as no_dev
+ARG UID=${UID:-1000}
+FROM python:3.10-bullseye as prod
+ARG UID
 # Barebones requirements for a production install.
 
-# TODO: Create a non-root user/group, preferrably with the same UID as the user building it.
 ENV PYTHONDONTWRITEBYTECODE=1
+ENV APPNAME=newapp
+
+# root stuff
+# RUN ???
+
+# app user stuff
+RUN groupadd --gid $UID $APPNAME \
+    && useradd -ms /bin/bash --uid $UID --gid $UID $APPNAME
+USER $APPNAME
+ENV PATH="$PATH:/home/$APPNAME/.local/bin"
+
 WORKDIR /app
-
-RUN pip install --no-cache-dir poetry
-
 COPY . .
-RUN poetry install --only main
-
+RUN pip install --no-cache-dir poetry && poetry install --only main
 CMD [ "poetry", "run", "cli" ]
 
 
-FROM no_dev as dev
+FROM prod as dev
 # Developer friendly stuff.
 
-RUN apt-get update \
-    && apt-get install -y bash-completion \
-    && poetry completions bash > /etc/bash_completion.d/poetry \
-    && poetry install
+# root stuff
+USER root
+# https://github.com/python-poetry/poetry/issues/4572
+#RUN apt-get update \
+#    && apt-get install -y bash-completion \
+#    && poetry completions bash > /etc/bash_completion.d/poetry
+
+# app user stuff
+USER $APPNAME
+RUN poetry install

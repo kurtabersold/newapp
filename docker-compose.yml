@@ -3,7 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: awesome/webapp
+      args:
+        UID: ${UID:-1000}
+    image: kurtabersold/newapp
     command:
       - poetry
       - run

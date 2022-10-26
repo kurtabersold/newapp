@@ -1,5 +1,9 @@
 .dockerignore
+.git
+.github
+.gitignore
+.idea
+**/.pytest_cache
 Dockerfile
 docker-compose.yml
-README.rst
 tasks.py
