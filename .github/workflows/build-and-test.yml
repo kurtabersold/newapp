@@ -22,5 +22,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install
+      - name: List Directory (Testing .dockerignore bug)
+        run: ls -al .
       - name: Test with pytest
         run: poetry run pytest

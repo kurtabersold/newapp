@@ -3,15 +3,16 @@ FROM python:3.10-bullseye as prod
 ARG UID
 # Barebones requirements for a production install.
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV APPNAME=newapp
+ENV APPNAME=newapp \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PATH="$PATH:/home/$APPNAME/.local/bin"
 
 # root stuff
-# RUN ???
-
-# app user stuff
 RUN groupadd --gid $UID $APPNAME \
     && useradd -ms /bin/bash --uid $UID --gid $UID $APPNAME
+
+# app user stuff
 USER $APPNAME
 ENV PATH="$PATH:/home/$APPNAME/.local/bin"
 

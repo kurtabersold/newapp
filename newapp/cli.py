@@ -6,6 +6,7 @@ import typer
 
 from . import __version__ as app_version
 
+# TODO: Install completion in dev environment.
 
 log = logging.getLogger(__name__)
 app = typer.Typer()

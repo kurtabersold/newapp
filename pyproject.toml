@@ -2,6 +2,7 @@
 name = "newapp"
 version = "0.1.0"
 description = "This is not a real app, It's just a template."
+license = "MIT"
 authors = ["Kurt Abersold <kurtabersold@gmail.com>"]
 readme = "README.md"
 repository = "https://github.com/kurtabersold/newapp"
