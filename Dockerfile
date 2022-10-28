@@ -4,21 +4,26 @@ ARG UID
 # Barebones requirements for a production install.
 
 ENV APPNAME=newapp \
+    APPDIR="/app" \
     PYTHONDONTWRITEBYTECODE=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PATH="$PATH:/home/$APPNAME/.local/bin"
+    POETRY_HOME="/etc/poetry" \
+    PATH="$PATH:/etc/poetry/bin"
 
 # root stuff
+WORKDIR $APPDIR
+COPY . .
 RUN groupadd --gid $UID $APPNAME \
-    && useradd -ms /bin/bash --uid $UID --gid $UID $APPNAME
+    && useradd -ms /bin/bash --uid $UID --gid $UID $APPNAME \
+    && chown --recursive $APPNAME:$APPNAME $APPDIR \
+    && curl -sSL https://install.python-poetry.org | python3 - \
+    && poetry --version \
+    && echo "export PATH=\$PATH:$POETRY_HOME/bin\nsource \$(poetry env info --path)/bin/activate" \
+    > /etc/profile.d/activate_poetry.sh \
+    && chmod +x /etc/profile.d/activate_poetry.sh
 
 # app user stuff
 USER $APPNAME
-ENV PATH="$PATH:/home/$APPNAME/.local/bin"
-
-WORKDIR /app
-COPY . .
-RUN pip install --no-cache-dir poetry && poetry install --only main
+RUN poetry install --only main
 CMD [ "poetry", "run", "cli" ]
 
 
@@ -26,10 +31,10 @@ FROM prod as dev
 # Developer friendly stuff.
 
 # root stuff
-USER root
-# https://github.com/python-poetry/poetry/issues/4572
-#RUN apt-get update \
-#    && apt-get install -y bash-completion \
+# USER root
+# TODO: https://github.com/python-poetry/poetry/issues/4572
+#RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+#    && apt-get install -y --no-install-recommends bash-completion \
 #    && poetry completions bash > /etc/bash_completion.d/poetry
 
 # app user stuff

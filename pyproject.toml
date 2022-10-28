@@ -14,9 +14,29 @@ cli = "newapp.cli:app"
 python = "^3.8"
 typer = "^0.6.1"
 
-[tool.poetry.dev-dependencies]
-pytest = "^7.1.3"
+[tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "--cov"
+testpaths = [
+    "tests",
+]
+
+# [tool.coverage]
+[tool.coverage.run]
+branch = true
+source = [
+    "newapp",
+]
+[tool.coverage.report]
+fail_under = 70
+precision = 2
+
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
