@@ -48,9 +48,7 @@ This project uses [poetry](https://pypi.org/project/poetry/) for dependency mana
 `poetry update`
 
 ### Add Dependency
-`poetry add [--dev] package`
-
-
+`poetry add [--group dev] package`
 
 
 ## TODO
