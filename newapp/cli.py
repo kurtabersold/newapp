@@ -10,7 +10,7 @@ from . import __version__ as app_version
 # TODO: Install completion in dev environment.
 
 log = logging.getLogger(__name__)
-app = typer.Typer()
+app = typer.Typer(no_args_is_help=True, add_completion=False)
 
 
 def signal_handler(signum, frame):

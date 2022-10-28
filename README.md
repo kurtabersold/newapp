@@ -29,16 +29,11 @@ This project uses [typer](https://pypi.org/project/typer/) It's purpose is to cr
 collect arguments, and run whatever code needed.
 
 ```
-# poetry run cli --help
+$ poetry run cli --help
 Usage: cli [OPTIONS] COMMAND [ARGS]...
 
 Options:
-  --install-completion [bash|zsh|fish|powershell|pwsh]
-                                  Install completion for the specified shell.
-  --show-completion [bash|zsh|fish|powershell|pwsh]
-                                  Show completion for the specified shell, to
-                                  copy it or customize the installation.
-  --help                          Show this message and exit.
+  --help  Show this message and exit.
 
 Commands:
   noop     No-Op Command
