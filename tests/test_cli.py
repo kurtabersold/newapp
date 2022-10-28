@@ -1,12 +1,20 @@
+import signal
 import sys
 
 from typer.testing import CliRunner
+from unittest import mock
 
 from newapp import cli, __version__
 
 # https://typer.tiangolo.com/tutorial/testing/
 
 runner = CliRunner()
+
+
+@mock.patch("newapp.cli.sys.exit")
+def test_signal_handler(exit_mock):
+    cli.signal_handler(signal.SIGHUP, "I'm a frame!")
+    exit_mock.assert_called_once_with(0)
 
 
 def test_cli_noop():

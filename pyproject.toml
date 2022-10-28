@@ -26,7 +26,7 @@ testpaths = [
     "tests",
 ]
 
-# [tool.coverage]
+[tool.coverage]
 [tool.coverage.run]
 branch = true
 source = [
@@ -35,8 +35,10 @@ source = [
 [tool.coverage.report]
 fail_under = 85
 precision = 2
-
-
+show_missing = true
+exclude_lines = [
+    "if __name__ == .__main__.:"
+]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
