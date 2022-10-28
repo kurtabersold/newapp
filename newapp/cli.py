@@ -1,6 +1,7 @@
 import logging
 import signal
 import sys
+from typing import Union
 
 import typer
 
@@ -32,14 +33,14 @@ def noop():
 
 
 @app.command()
-def null(timeout=0):
+def null(timeout: Union[None, float] = None):
     """Do Nothing Forever"""
     from threading import Event
 
     log.info("Waiting forever")
 
     signal.signal(signal.SIGTERM, signal_handler)
-    Event().wait()
+    Event().wait(timeout=timeout)
 
 
 @app.command()

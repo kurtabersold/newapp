@@ -1,4 +1,5 @@
-import pytest
+import sys
+
 from typer.testing import CliRunner
 
 from newapp import cli, __version__
@@ -13,10 +14,8 @@ def test_cli_noop():
     assert result.exit_code == 0
 
 
-@pytest.mark.skip
-def test_cli_null(term_handler):
-    # TODO: How to test signal handling in python?
-    result = runner.invoke(cli.app, ["null"])
+def test_cli_null():
+    result = runner.invoke(cli.app, ["null", "--timeout", sys.float_info.min])
     assert result.exit_code == 0
 
 
