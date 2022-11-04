@@ -1,0 +1,15 @@
+services:
+  develop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UID: ${UID:-1000}
+    image: kurtabersold/newapp
+    command:
+      - poetry
+      - run
+      - cli
+      - "null"
+    volumes:
+      - ./:/app/
