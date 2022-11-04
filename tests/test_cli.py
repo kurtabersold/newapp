@@ -13,7 +13,7 @@ runner = CliRunner()
 
 @mock.patch("newapp.cli.sys.exit")
 def test_signal_handler(exit_mock):
-    cli.signal_handler(signal.SIGHUP, "I'm a frame!")
+    cli.signal_handler(signal.SIG_IGN, "I'm a frame!")
     exit_mock.assert_called_once_with(0)
 
 
